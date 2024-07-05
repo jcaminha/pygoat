@@ -13,10 +13,19 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: Docker Scout
-      uses: docker/scout-action@v1.10.0
-      with:
-        dockerhub-user: ${{ secrets.DOCKER_HUB_USER }}
-        dockerhub-password: ${{ secrets.DOCKER_USER_PASSWORD }}
-        command: quickview,cves
-        
+    #- name: Docker Scout
+    #  uses: docker/scout-action@v1.10.0
+    #  with:
+    #    dockerhub-user: ${{ secrets.DOCKER_HUB_USER }}
+    #    dockerhub-password: ${{ secrets.DOCKER_USER_PASSWORD }}
+    #    command: quickview,cves
+    
+    name: Install Docker Scout
+      run:|
+            curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install_scout.sh
+            sh install_scout.sh
+            echo ${{ secrets.DOCKER_HUB_PASSWORD}} | docker login -u ${{ secrets.DOCKER_HUB_USER}} --password-stdin
+
+            docker scout quickview
+            docker scout cves
+            
