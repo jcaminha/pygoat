@@ -1,0 +1,15 @@
+name: Criar a Docker Image
+
+on:
+  workflow_dispatch:
+  
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Construir the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
