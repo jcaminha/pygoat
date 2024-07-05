@@ -16,7 +16,7 @@ jobs:
     - name: Docker Scout
       uses: docker/scout-action@v1.10.0
       with:
-        dockerhub-user: ${{ secrets.docker_hub_user }}
-        dockerhub-password: ${{ secrets.docker_hub_password }}
+        dockerhub-user: ${{ secrets.DOCKER_HUB_USER }}
+        dockerhub-password: ${{ secrets.DOCKER_USER_PASSWORD }}
         command: quickview,cves
         
